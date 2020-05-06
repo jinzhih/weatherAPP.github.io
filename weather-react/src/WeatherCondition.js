@@ -1,12 +1,12 @@
 import React from 'react';
 
-import compass from 'icon/icon-compass.png';
-import umberella from 'icon/icon-umberella.png';
-import wind from 'icon/icon-wind.png';
+// import compass from 'icon/icon-compass.png';
+// import umberella from 'icon/icon-umberella.png';
+// import wind from 'icon/icon-wind.png';
 
-// import compass from '../assets/icons/icon-compass.png';
-// import umberella from '../assets/icons/icon-umberella.png';
-// import wind from '../assets/icons/icon-wind.png';
+import compass from './assets/icons/icon-compass.png';
+import umberella from './assets/icons/icon-umberella.png';
+import wind from './assets/icons/icon-wind.png';
 
 function WeatherCondition() {
 	return (
