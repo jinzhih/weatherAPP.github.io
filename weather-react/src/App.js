@@ -1,37 +1,6 @@
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-// import Navigation from './Navigation';
-// import Section1 from './Section1';
-// import Section2 from './Section2';
 
-
-// function App() {
-//   return (
-//     <div class="weather-channel__container">
-//       <header>
-//         <img class="header__logo" src="/icon/logo.png"/> 
-        
-//         <h1 class="header__title">Weather Channel</h1>
-//       </header>
-//       <nav>
-       
-//          < Navigation />
-       
-//       </nav>
-
-//       <main>
-//       < Section1 />
-//       < Section2 />
-//       </main>
-
-//       <footer class="weather-channel__footer"><p>Powered by React</p></footer>
-//     </div>
-//   );
-// }
-
-// export default App;
 import React from 'react';
+import axios from 'axios';
 
 import Footer from './Footer';
 import Header from './Header';
@@ -40,15 +9,53 @@ import Navigation from './Navigation';
 
 import './App.css';
 
-function App() {
+class App extends React.Component{
+	state = {
+		cityName: "",
+		current: {},
+		forecasts: [],
+		limit: 5,
+	}
+
+
+componentDidMount(){
+	axios(
+		"https://jr-weather-api.herokuapp.com/api/weather?cc=au&city=brisbane"
+	  ).then((res) => {
+		//   console.log(res);
+		const data = res.data.data;
+		const cityName = data.city.name;
+		const current = data.current;
+		const forecasts = data.forecast.slice(0, 10);
+		this.setState({ cityName, current, forecasts });
+	  });
+
+}
+
+handleChangeLimit = limit => {
+	this.setState({limit});
+}
+render(){
+
 	return (
 		<div className="weather-channel__container">
 			<Header />
 			<Navigation />
-			<Main />
+			<Main 
+				cityName = {this.state.cityName}
+				current = {this.state.current}
+				forecasts = {this.state.forecasts}
+				limit = {this.state.limit}
+				handleChangeLimit = {this.handleChangeLimit}
+			
+			/>
 			<Footer />
 	  	</div>
 	);
+
 }
+}
+
+
 
 export default App;

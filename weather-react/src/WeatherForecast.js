@@ -7,56 +7,19 @@ import { format } from "date-fns";
 import ForecastRow from "./ForecastRow";
 
 class WeatherForecast extends React.Component {
-  state = {
-    forecasts: [],
-    addClass:true,
-    item:5,
-  };
-
-  changeItemsTen = () => {
-    this.setState({addClass: false});
-    this.setState({item: 10});
-    axios(
-        "https://jr-weather-api.herokuapp.com/api/weather?cc=au&city=brisbane"
-      ).then((res) => {
-        //   console.log(res);
-        const forecasts = res.data.data.forecast.slice(0, this.state.item);
-        this.setState({ forecasts });
-      });
   
-  }
-  changeItemsFive =() => {
-    this.setState({addClass: true}); 
-    this.setState({item: 5});
-    axios(
-        "https://jr-weather-api.herokuapp.com/api/weather?cc=au&city=brisbane"
-      ).then((res) => {
-        //   console.log(res);
-        const forecasts = res.data.data.forecast.slice(0, this.state.item);
-        this.setState({ forecasts });
-      });
-  
-  }
-
-  componentDidMount() {
-    axios(
-      "https://jr-weather-api.herokuapp.com/api/weather?cc=au&city=brisbane"
-    ).then((res) => {
-      //   console.log(res);
-      const forecasts = res.data.data.forecast.slice(0, this.state.item);
-      this.setState({ forecasts });
-    });
-  }
-
   render() {
+    const {limit} = this.props;
+    const forecasts = this.props.forecasts.slice(0, limit)
+
     return (
       <section className="weather-forecast">
         <div className="forecast__switch">
-        <button onClick={this.changeItemsFive} className={classNames({"forecast__switch_0":true,"switch-active":this.state.addClass})}>5 items</button>
-        <button onClick={this.changeItemsTen} className={classNames({"forecast__switch_1":true,"switch-active":(!this.state.addClass)})}>10 items</button>  
+        <button onClick={()=>this.props.handleChangeLimit(5)} className={`forecast__switch_0 ${limit === 5 ? 'switch-active' : ''}`}>5 items</button>
+        <button onClick={()=>this.props.handleChangeLimit(10)} className={`forecast__switch_1 ${limit === 10 ? 'switch-active' : ''}`}>10 items</button>  
           
         </div>
-        {this.state.forecasts.map((forecast) => {
+        {forecasts.map((forecast) => {
           const date = new Date(forecast.time * 1000);
           const day = format(date, "EEE");
           const time = format(date, "HH:mm");
