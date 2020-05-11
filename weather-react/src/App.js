@@ -17,6 +17,8 @@ class App extends React.Component{
 		current: {},
 		forecasts: [],
 		limit: 5,
+		unit: "C",
+
 	}
 
 
@@ -44,6 +46,11 @@ handleInputChange = event =>{
 handleSearch = () =>{
 	getWeather(this.state.input).then(this.updateWeather);
 }
+
+toggleUnit = () =>{
+	this.setState(state => ({unit: state.unit==="C" ? "F" : "C"}));
+}
+
 render(){
 
 	return (
@@ -53,6 +60,8 @@ render(){
 			input = {this.state.input}
 			handleInputChange = {this.handleInputChange}
 			handleSearch = {this.handleSearch}
+			unit = {this.state.unit}
+			toggleUnit = {this.toggleUnit}
 			/>
 			<Main 
 				cityName = {this.state.cityName}
@@ -60,6 +69,7 @@ render(){
 				forecasts = {this.state.forecasts}
 				limit = {this.state.limit}
 				handleChangeLimit = {this.handleChangeLimit}
+				unit = {this.state.unit}
 			
 			/>
 			<Footer />

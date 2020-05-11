@@ -31,12 +31,12 @@ function Navigation(props) {
 				<button className="search-btn" onClick={props.handleSearch}>
 					<i className="fa fa-search" />
 				</button>
-				<button className="temp-switch">
+				<button className="temp-switch" onClick={props.toggleUnit}>
 					<i
 						className="fa fa-thermometer-empty temp-switch__icon"
 						aria-hidden="true"
 					/>
-					<sup>&deg;</sup>C
+					<sup>&deg;</sup>{props.unit}
 				</button>
 		  	</div>
 		</nav>

@@ -10,7 +10,8 @@ class WeatherForecast extends React.Component {
   
   render() {
     const {limit} = this.props;
-    const forecasts = this.props.forecasts.slice(0, limit)
+    const forecasts = this.props.forecasts.slice(0, limit);
+    const {unit} = this.props;
 
     return (
       <section className="weather-forecast">
@@ -26,6 +27,7 @@ class WeatherForecast extends React.Component {
 
           return (
             <ForecastRow
+              unit={unit}
               key={forecast.time}
               day={day}
               high={forecast.maxCelsius}
