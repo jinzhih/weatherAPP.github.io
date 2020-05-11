@@ -21,7 +21,7 @@ class WeatherCondition extends React.Component {
             <section className="weather-condition">
                 <div className="weather-condition__location">{cityName}</div>
                 <div className="weather-condition__overview">Clear</div>
-                <div className="weather-condition__temp">{current.minCelsius} {unit}</div>
+                <div className="weather-condition__temp">{unit==="C" ? current.maxCelsius : current.maxFahrenheit} {unit}</div>
                 <div className="weather-condition__desc">
                     <div>
                         <img src={umberella} />
